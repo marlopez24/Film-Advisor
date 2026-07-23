@@ -20,11 +20,21 @@ When you are ready to give your recommendation, respond only in valid JSON — n
   "alternatives": [
     {
       "stock": "",
-      "why": ""
+      "why": "",
+      "iso": "",
+      "push_pull": "",
+      "exposure_notes": "",
+      "aperture": "",
+      "shutter_speed": ""
     },
     {
       "stock": "",
-      "why": ""
+      "why": "",
+      "iso": "",
+      "push_pull": "",
+      "exposure_notes": "",
+      "aperture": "",
+      "shutter_speed": ""
     }
   ]
 }`;
@@ -155,7 +165,30 @@ function App() {
               >
                 {alt.stock} {expandedAlt === index ? "▲" : "▼"}{" "}
               </h3>
-              {expandedAlt === index && <p>{alt.why}</p>}
+              {expandedAlt === index && (
+                <>
+                  <p>{alt.why}</p>
+                  <p>
+                    <strong>ISO:</strong> {alt.iso}
+                  </p>
+                  <p>
+                    {" "}
+                    <strong>Aperture:</strong> {alt.aperture}
+                  </p>
+                  <p>
+                    <strong>Shutter Speed:</strong>
+                    {alt.shutter_speed}
+                  </p>
+                  <p>
+                    <strong>Exposure Notes:</strong>
+                    {alt.exposure_notes}
+                  </p>
+                  <p>
+                    <strong>Push/Pull:</strong>
+                    {alt.push_pull}
+                  </p>
+                </>
+              )}
             </div>
           ))}
         </div>
