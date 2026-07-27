@@ -69,17 +69,14 @@ function App() {
     Give your recommendation now.
     `;
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-        }),
-      },
-    );
+    const response = await fetch("http://localhost:3001/api/recommend", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        prompt: prompt,
+        systemPrompt: SYSTEM_PROMPT,
+      }),
+    });
 
     const data = await response.json();
     console.log(JSON.stringify(data));
