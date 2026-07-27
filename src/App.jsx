@@ -69,14 +69,18 @@ function App() {
     Give your recommendation now.
     `;
 
-    const response = await fetch("http://localhost:3001/api/recommend", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        prompt: prompt,
-        systemPrompt: SYSTEM_PROMPT,
-      }),
-    });
+    console.log("API URL:", import.meta.env.VITE_API_URL);
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/recommend`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: prompt,
+          systemPrompt: SYSTEM_PROMPT,
+        }),
+      },
+    );
 
     const data = await response.json();
     console.log(JSON.stringify(data));
