@@ -8,11 +8,21 @@ Built with React and the Google Gemini API.
 
 To run this project locally:
 
+### Frontend
+
 1. Clone the repo
-2. Run `npm install`
-3. Create a `.env` file in the root with your Gemini API key:
-   `VITE_GEMINI_API_KEY=your_key_here`
+2. Run `npm install` in the root folder
+3. Create a `.env` file in the root with:
+   `VITE_API_URL=http://localhost:3001`
 4. Run `npm run dev`
+
+### Backend
+
+1. Navigate to the server folder: `cd server`
+2. Run `npm install`
+3. Create a `.env` file inside the server folder with your Gemini API key:
+   `GEMINI_API_KEY=your_key_here`
+4. Run `node index.js`
 
 ## AI Diligence Statement
 
