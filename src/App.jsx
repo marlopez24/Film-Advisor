@@ -55,8 +55,11 @@ function App() {
   const [currentAnswer, setCurrentAnswer] = useState([]);
   const [results, setResults] = useState(null);
   const [expandedAlt, setExpandedAlt] = useState(null);
+  const [error, setError] = useState(null);
 
   const getRecommendation = async (allAnswers) => {
+    setError(null);
+
     const prompt = `
     The user wants film stock recommendations. Here are their answers:
     1. Color or black and white: ${allAnswers[0]}
@@ -69,37 +72,47 @@ function App() {
     Give your recommendation now.
     `;
 
-    console.log("API URL:", import.meta.env.VITE_API_URL);
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/recommend`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: prompt,
-          systemPrompt: SYSTEM_PROMPT,
-        }),
-      },
-    );
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/recommend`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt: prompt,
+            systemPrompt: SYSTEM_PROMPT,
+          }),
+        },
+      );
 
-    const data = await response.json();
-    console.log(JSON.stringify(data));
+      const data = await response.json();
 
-    if (data.error) {
-      console.log("API Error:", data.error.message);
+      if (data.error) {
+        setError(
+          "Something went wrong with getting your recommendation. Please try again.",
+        );
+        setStep("questions");
+        return;
+      }
+
+      const text = data.candidates[0].content.parts[0].text;
+      try {
+        const cleaned = text.replace(/```json|```/g, "").trim();
+        const parsed = JSON.parse(cleaned);
+        setResults(parsed);
+        setStep("results");
+      } catch (_error) {
+        setError("Had trouble reading the recommendation. Please try again.");
+        setStep("questions");
+      }
+    } catch (_error) {
+      setError("Network error. Please check your connection and try again.");
       setStep("questions");
-      return;
     }
-
-    const text = data.candidates[0].content.parts[0].text;
-    console.log("raw text:", text);
-    const cleaned = text.replace(/```json|```/g, "").trim();
-    const parsed = JSON.parse(cleaned);
-    setResults(parsed);
-    setStep("results");
   };
 
   const handleAnswer = () => {
+    if (!currentAnswer.trim()) return;
     const updatedAnswers = [...answers, currentAnswer];
     setAnswers(updatedAnswers);
     setCurrentAnswer("");
@@ -162,7 +175,7 @@ function App() {
       {step === "loading" && (
         <div className="flex flex-col items-center justify-center min-h-screen px-6">
           <p className="text-xs tracking-widest uppercase text-gray-600 animate-pulse">
-            Consulting the expert...
+            Retrieving recommendation. This may take a moment...
           </p>
         </div>
       )}
