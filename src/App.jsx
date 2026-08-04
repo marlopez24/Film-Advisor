@@ -163,6 +163,12 @@ function App() {
           >
             Get Started
           </button>
+          <p className="text-xs text-gray-700 text-center mt-8 max-w-xs">
+            On your phone? Tap the share button and "
+            <span className="text-gray-400">Add to Home Screen</span>" to
+            install this as an app.
+          </p>
+
           <button
             onClick={() => setShowAbout(true)}
             className="mt-6 text-xs text-gray-600 tracking-widest uppercase hover:text-gray-400 transition-all duration-300"
