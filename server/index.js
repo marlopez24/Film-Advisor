@@ -2,11 +2,22 @@ import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
+import rateLimit from "express-rate-limit";
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://film-advisor.vercel.app",
+  }),
+);
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: { error: "Too many requests, please try again later." },
+});
+app.use("api/reccomend", limiter);
 app.use(express.json());
 
 app.post("/api/recommend", async (req, res) => {
