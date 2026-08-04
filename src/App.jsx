@@ -77,6 +77,7 @@ function App() {
   const [results, setResults] = useState(null);
   const [expandedAlt, setExpandedAlt] = useState(null);
   const [error, setError] = useState(null);
+  const [showAbout, setShowAbout] = useState(false);
 
   const getRecommendation = async (allAnswers) => {
     setError(null);
@@ -150,12 +151,9 @@ function App() {
     <div className="min-h-screen bg-[#111] text-gray-300 font-['Inter']">
       {step === "welcome" && (
         <div className="flex flex-col items-center justify-center min-h-screen px-6">
-          <h1 className="text-xs tracking-widget uppercase text-gray-500 mb-4">
-            Film Stock Advisor
+          <h1 className="font-['Playfair_Display'] text-5xl md:text-7xl text-[#f0ece4] font-normal text-center mb-6">
+            Find your film
           </h1>
-          <p className="font-['Playfair_Display'] text-5xl md:text-7xl text-[#f0ece4] font-normal text-center mb-6">
-            Find your film.
-          </p>
           <p className="text-gray-500 text-center max-w-sm mb-10 text-sm leading-relaxed">
             Answer a few questions and get a film stock recommendation.
           </p>
@@ -165,6 +163,54 @@ function App() {
           >
             Get Started
           </button>
+          <button
+            onClick={() => setShowAbout(true)}
+            className="mt-6 text-xs text-gray-600 tracking-widest uppercase hover:text-gray-400 transition-all duration-300"
+          >
+            About
+          </button>
+          {showAbout && (
+            <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center px-6 z-50">
+              <div className="bg-[#1a1a1a] border border-gray-800 rounded-lg max-w-lg w-full p-8 max-h-[80vh] overflow-y-auto">
+                <h2 className="font-['Playfair_Display'] text-2xl text-[#f0ece4] font-normal mb-6">
+                  About this project
+                </h2>
+                <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                  Find your Film is a film stock recommendation tool for
+                  photographers, ranging from beginners to more advanced
+                  shooters. Answer a few questions about your shooting
+                  conditions, vibe, and occasion to get a tailored
+                  recommendation along with exposure notes and settings to get
+                  you started.
+                </p>
+                <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                  This tool was built because film photography deserves a
+                  focused, specific place to get this kind of guidance.
+                </p>
+                <h3 className="text-xs tracking-widest uppercase text-gray-600 mb-3 mt-6">
+                  AI Diligence Statement
+                </h3>
+                <p className="text-gray-500 text-xs leading-relaxed mb-3">
+                  This tool uses Google's Gemini 2.5 Flash model to generate
+                  film stock suggestions. Claude was used as a development
+                  assistant to help structure the project and refine the system
+                  prompt. The vision, direction, and domain knowledge behind
+                  this tool are my own. All recommendations should be treated as
+                  a starting point and it is advised that one verifes
+                  information against your own research and experience.
+                </p>
+                <p className="text-gray-500 text-xs leading-relaxed mb-6">
+                  No personal user data is collected or stored.
+                </p>
+                <button
+                  onClick={() => setShowAbout(false)}
+                  className="border border-gray-700 text-gray-400 text-xs tracking-widest uppercase px-6 py-3 hover:border-gray-400 hover:text-white transition-all duration-300 w-full"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
       {step === "questions" && (
