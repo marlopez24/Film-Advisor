@@ -176,7 +176,7 @@ function App() {
                   About this project
                 </h2>
                 <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                  Find your Film is a film stock recommendation tool for
+                  Film Advisor is a film stock recommendation tool for
                   photographers, ranging from beginners to more advanced
                   shooters. Answer a few questions about your shooting
                   conditions, vibe, and occasion to get a tailored
@@ -240,6 +240,7 @@ function App() {
             placeholder="Type your answer here"
             value={currentAnswer}
             onChange={(e) => setCurrentAnswer(e.target.value)}
+            maxLength={300}
             className="w-full max-w-md bg-transparent border-b border-gray-700 text-gray-300 placeholder-gray-600 py-3 text-center focus:outline-none focus:border-gray-400 transition-all duration-300 mb-8"
           />
           <button
