@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-const SYSTEM_PROMPT = `You are a seasoned, published film photographer — a Hasselblad Award recipient whose work has appeared in major publications worldwide. You teach at prestigious photography centers and universities and are known for making complex photographic concepts accessible to beginners and experts alike.
+const SYSTEM_PROMPT = `You are a seasoned, published film photographer — a Hasselblad Award recipient whose work has appeared in major publications worldwide and inspires many talented film photographers. You teach at prestigious photography centers and universities and are known for making complex photographic concepts accessible to beginners and experts alike.
 
-When someone comes to you for film stock advice, give them one top film stock recommendation and two alternative considerations. For the top pick, include: why this stock fits their situation (color, grain, character), a starting ISO, a brief push/pull note only if it would genuinely benefit them (always include a one-liner explaining what push/pull means so beginners aren't lost), exposure notes, and aperture and shutter speed starting points where relevant. Keep the tone warm, knowledgeable, and conversational — like a trusted professor, not a manual.
+When someone comes to you for film stock advice, give them one top film stock recommendation and two alternative considerations. For the top pick, include: why this stock fits their situation (color, grain, character), a starting ISO, a brief push/pull note only if it would genuinely benefit them (always include a one-liner explaining what push/pull means so beginners aren't lost), exposure notes, and aperture and shutter speed starting points where relevant. Keep the tone warm, knowledgeable, and conversational — like a trusted professor, not a manual. Please attempt to refrain from using dashes a lot so that it is more of a human response, but use where it is grammtically necessary.
 
-You only discuss film photography. If someone asks you something outside that world, respond with humor and warmth — something that makes clear this isn't your domain, but keeps them smiling. Draw from a wide and diverse range of film stocks including less common and professional options, not just popular consumer films. Prioritize matching the specific vibe and aesthetic the user describes over defaulting to safe mainstream recommendations. If the user describes something specific and artistic, reflect that in your choice. Never default to the same top pick twice in a row. Always consider what makes this specific user's situation unique.
+You only discuss film photography. If someone asks you something outside that world, respond with humor and warmth — something that makes clear this isn't your domain, but keeps them smiling. Draw from a wide and diverse range of film stocks including less common and professional options as well as new film stocks that are released, not just popular consumer films. Prioritize matching the specific vibe and aesthetic the user describes over defaulting to safe mainstream recommendations. If the user describes something specific and artistic, reflect that in your choice. Never default to the same top pick twice in a row. Always consider what makes this specific user's situation unique.
 
 When you are ready to give your recommendation, respond only in valid JSON — no extra text, no markdown, no backticks. Use this exact structure:
 {
@@ -40,12 +40,33 @@ When you are ready to give your recommendation, respond only in valid JSON — n
 }`;
 
 const questions = [
-  "Color or black and white, or open to either?",
-  "What vibe or mood are you going for?",
-  "What are your shooting conditions? Indoor or outdoor? What will lighting be like?",
-  "What's the occasion or subject?",
-  "What format are you shooting? 35mm, medium format, or large format?",
-  "Are you looking for a classic reliable stock, or open to something more experimental and unique?",
+  {
+    question: "Color or black and white, or open to either?",
+    hint: "This will just help narrow down the recommendation.",
+  },
+  {
+    question: "What vibe or mood are you going for?",
+    hint: "What aesthetic are you going for? Moody, dreamy, gritty, etc. The more specific the better.",
+  },
+  {
+    question:
+      "What are your shooting conditions? Indoor or outdoor? What will lighting be like?",
+    hint: "Ex. Bright sun, shade, tungsten, or golden hour. Different lighting calls for different stocks.",
+  },
+  {
+    question: "What's the occasion or subject?",
+    hint: "Are you taking portraits, street, concerts, landscapes, etc.?",
+  },
+  {
+    question:
+      "What format are you shooting? 35mm, medium format, or large format?",
+    hint: "Some stocks are only avaiable in certain formats. ",
+  },
+  {
+    question:
+      "Are you looking for a classic reliable stock, or open to something more experimental and unique?",
+    hint: "Classic stocks are tried and true. Experimental stocks can surprise you with unexpected results.",
+  },
 ];
 
 function App() {
@@ -151,9 +172,14 @@ function App() {
           <p className="text-xs tracking-widest uppercase text-gray-600 mb-8">
             Question {questionIndex + 1} of {questions.length}
           </p>
-          <p className="font-['Playfair_Display'] text-3xl md:text-4xl text-[#f0ece4] font-normal text-center mb-10 max-w-lg">
-            {questions[questionIndex]}
+          <p className="font-['Playfair_Display'] text-3xl md:text-4xl text-[#f0ece4] font-normal text-center mb-3 max-w-lg">
+            {questions[questionIndex].question}
           </p>
+          {questions[questionIndex].hint && (
+            <p className="text-gray-500 text-xs text-center mb-10 max-w-sm tracking-wide">
+              {questions[questionIndex].hint}
+            </p>
+          )}
           <input
             type="text"
             placeholder="Type your answer here"
@@ -175,7 +201,7 @@ function App() {
       {step === "loading" && (
         <div className="flex flex-col items-center justify-center min-h-screen px-6">
           <p className="text-xs tracking-widest uppercase text-gray-600 animate-pulse">
-            Retrieving recommendation. This may take a moment...
+            Getting recommendation. Just a moment...
           </p>
         </div>
       )}
