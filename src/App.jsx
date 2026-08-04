@@ -202,6 +202,15 @@ function App() {
                 <p className="text-gray-500 text-xs leading-relaxed mb-6">
                   No personal user data is collected or stored.
                 </p>
+                <a
+                  href="https://tally.so/r/rjQPjM"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-center text-xs text-gray-600 tracking-widest uppercase hover:text-gray-400 transition-all duration-300 mb-6"
+                >
+                  Give feedback
+                </a>
+
                 <button
                   onClick={() => setShowAbout(false)}
                   className="border border-gray-700 text-gray-400 text-xs tracking-widest uppercase px-6 py-3 hover:border-gray-400 hover:text-white transition-all duration-300 w-full"
@@ -389,6 +398,14 @@ function App() {
               )}
             </div>
           ))}
+          <a
+            href="https://tally.so/r/rjQPjM"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-center text-xs text-gray-600 tracking-widest uppercase hover:text-gray-400 transition-all duration-300 mb-6"
+          >
+            Give feedback
+          </a>
 
           <button
             onClick={() => {
