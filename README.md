@@ -1,12 +1,92 @@
 # Film Advisor
 
-A film stock recommendation tool for filmphotographers, from beginners to more advanced shooters. Answer a few questions about your shooting conditions, vibe, and occasion to get a tailored film stock recommendation with exposure notes, ISO, aperture, and shutter speed starting points.
 
-Built with React and the Google Gemini API.
+A film stock recommendation web application that helps photographers choose film based on their creative vision, shooting conditions, and preferred aesthetic.
 
-## Getting Started
+**Live app:** [film-advisor.vercel.app](https://film-advisor.vercel.app)
 
-To run this project locally:
+---
+
+## Index
+
+- [About](#about)
+- [Features](#features)
+- [Usage](#usage)
+- [Installation](#installation)
+- [Deployment](#deployment)
+- [Community](#community)
+- [FAQ](#faq)
+
+
+---
+
+## About
+
+
+Choosing the right film stock can be overwhelming, especially for those who are new to film photography. Advice is often scattered across various online sources, making it time consuming to compare stocks or understand why one might suit a particular creative vision.
+
+Film Advisor was built to provide a more approachable starting point. Users answer a handful of questions about their shooting conditions and artistic goals, then receive tailored recommendations with explanations and guidance.
+
+These six short questions ask about your shooting conditions, creative vision, and occasion. You then receive a recommendation with ISO, aperture, shutter speed, exposure notes, and push/pull guidance. Two alternative stocks are also provided for comparison to help you decide on the right choice.
+
+No login required. Completely free. Works on your phone.
+
+## Features
+
+- Personalized film stock recommendations
+- Three curated suggestions for every session
+- Exposure guidance
+- ISO recommendations
+- Push/Pull explanations
+- Responsive design
+- Progressive Web App (PWA)
+- User feedback collection
+- Analytics for continuous improvement
+- Rate limiting for API protection
+
+
+
+**Tech Stack**
+   - Frontend
+      -  React, Tailwind CSS, Vite
+   - Backend
+      - Node.js, Express
+   - AI
+      - Google Gemini 2.5 Flash
+   - Analytics
+      - Vercel Analytics
+   - Frontend hosting
+      - Vercel
+   - Backend hosting
+      - Render
+
+---
+
+## Usage
+
+1. Open [film-advisor.vercel.app](https://film-advisor.vercel.app) in your browser
+2. Answer six questions to narrow down results with color or black and white, vibe, conditions, occasion, format, and whether you want something classic or experimental
+3. Receive a top film stock recommendation with technical notes
+4. Expand either of the two alternative suggestions for more options
+5. Use the recommendation as a starting point but always verify against your own research and experience
+
+**Installing as an app on your phone**
+
+On iPhone 
+- tap the Share button in Safari and select Add to Home Screen
+
+On Android
+- tap the browser menu and select Add to Home Screen
+
+---
+
+## Installation
+
+To run this project locally you will need:
+
+- Node.js v18 or higher
+- A Google Gemini API key — free at [aistudio.google.com](https://aistudio.google.com)
+- Git
 
 ### Frontend
 
@@ -24,13 +104,91 @@ To run this project locally:
    `GEMINI_API_KEY=your_key_here`
 4. Run `node index.js`
 
-## AI Diligence Statement
 
-This tool was built with AI assistance at multiple levels. The recommendation engine uses Google's Gemini 2.5 Flash model to generate film stock suggestions based on user input. Claude was used as a development assistant to help structure the project, draft code, and refine the system prompt that defines the advisor's behavior.
-The vision, direction, and domain knowledge behind this tool are my own. The advisor's voice, expertise, and scope, such as who it is, what it knows, and how it responds, were written and directed by me while drawing on my ongoing engagement with the film photography community, forums, and published resources. All AI generated content was reviewed against my own knowledge and cross referenced with community sources. I make all final decisions about the tool's output and take full responsibility for it.
+---
 
-This tool is intended for film photography enthusiasts from beginners to more advanced shooters as a starting point for film stock selection and exposure settings. Recommendations should be treated as a starting point, not a definitive authority.
 
-No personal user data is collected or stored. This project is actively in development and not yet production ready.
+## Deployment
 
-This statement is made in the spirit of transparency, to honestly acknowledge AI's role in this work and to respect the communities this tool is built for. Film photography is a craft rooted in intention, experimentation, and a deep love for the medium. This tool is not here to replace that process or the knowledge of experienced photographers, but to offer a starting point for those finding their way into it.
+**Frontend:  Vercel**
+
+1. Push your repo to GitHub
+2. Import the project at [vercel.com](https://vercel.com)
+3. Add environment variable `VITE_API_URL` pointing to your deployed backend URL
+4. Deploy
+
+**Backend:  Render**
+
+1. Create a new Web Service at [render.com](https://render.com)
+2. Connect your GitHub repo
+3. Set Root Directory to `server`
+4. Set Build Command to `npm install`
+5. Set Start Command to `node index.js`
+6. Add environment variable `GEMINI_API_KEY` with your Gemini key
+7. Deploy
+
+---
+
+## Future Plans
+
+- Save recommendations
+- Shareable recommendation cards
+- Sample photos for each film stock
+- Expanded film database
+
+## Community
+
+Film Advisor is built for the film photography community. If you use it and have feedback, thoughts, or recommendations:
+
+- **Give feedback:**
+[Feedback form](https://tally.so/r/rjQPjM)
+- **Report a bug:**
+open an issue on GitHub
+- **Request a feature:**
+open an issue on GitHub and tag it as a feature request
+
+---
+
+## FAQ
+
+**Is this free?**
+
+Yes, completely free. No login, no subscription, no cost.
+
+**Can I trust the recommendations?**
+
+Recommendations are generated by an AI and should be treated as a starting point. The system prompt was designed with film photography experience and recommendations are cross referenced with community knowledge. Always verify against your own research and experience.
+
+**Does it store my data?**
+
+No personal data is collected or stored.
+
+**Can I install it on my phone?**
+
+Yes. It is a Progressive Web App. See the Usage section for installation instructions.
+
+**The app seems slow on first load. Is that normal?**
+
+The backend is hosted on Render's free tier which sleeps after inactivity. The first request may take 30 to 60 seconds to wake up. Requests after the initial one will be faster.
+
+---
+
+## Credit / Acknowledgment
+
+Built by a film photographer and full stack developer who wanted a better way to find the right film stock.
+
+**AI tools used in development:**
+- Google Gemini 2.5 Flash: powers the recommendation engine
+- Claude by Anthropic: used as a development assistant for code structure, prompt engineering, and refinement
+
+## AI Transparency
+
+Film Advisor uses Google's Gemini model to generate recommendations based on user responses.
+
+The application, user experience, prompt design, product direction, and film photography knowledge were designed by me. AI serves as the recommendation engine, while users are encouraged to treat suggestions as a starting point alongside their own research and creative experimentation.
+
+---
+
+## License
+
+MIT License — see [LICENSE](./LICENSE) file for details.
