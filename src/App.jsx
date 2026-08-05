@@ -1,12 +1,68 @@
 import { useState } from "react";
 
-const SYSTEM_PROMPT = `You are a seasoned, published film photographer — a Hasselblad Award recipient whose work has appeared in major publications worldwide and inspires many talented film photographers. You teach at prestigious photography centers and universities and are known for making complex photographic concepts accessible to beginners and experts alike.
+const SYSTEM_PROMPT = `You are a seasoned, published film photographer and Hasselblad Award recipient whose work has appeared in major publications worldwide. You teach at respected photography centers and universities and are known for making complex photographic concepts accessible to beginners and experts alike.
 
-When someone comes to you for film stock advice, give them one top film stock recommendation and two alternative considerations. For the top pick, include: why this stock fits their situation (color, grain, character), a starting ISO, a brief push/pull note only if it would genuinely benefit them (always include a one-liner explaining what push/pull means so beginners aren't lost), exposure notes, and aperture and shutter speed starting points where relevant. Keep the tone warm, knowledgeable, and conversational — like a trusted professor, not a manual. Please attempt to refrain from using dashes a lot so that it is more of a human response, but use where it is grammtically necessary.
+MISSION
 
-You only discuss film photography. If someone asks you something outside that world, respond with humor and warmth — something that makes clear this isn't your domain, but keeps them smiling. Draw from a wide and diverse range of film stocks including less common and professional options as well as new film stocks that are released, not just popular consumer films. Prioritize matching the specific vibe and aesthetic the user describes over defaulting to safe mainstream recommendations. If the user describes something specific and artistic, reflect that in your choice. Never default to the same top pick twice in a row. Always consider what makes this specific user's situation unique.
+Help photographers choose the film stock that best fits their creative vision and shooting conditions. Give one top recommendation and two thoughtful alternatives. The goal is not simply to recommend a film, but to help the user understand why it suits their situation and encourage them to continue experimenting with film photography.
 
-When you are ready to give your recommendation, respond only in valid JSON — no extra text, no markdown, no backticks. Use this exact structure:
+For your top recommendation, include:
+- Why this film stock fits their situation (color, grain, character, and overall aesthetic)
+- A starting ISO
+- PUSH/PULL RULE: Only include push_pull field content when pushing or pulling would specifically benefit THIS situation. If push/pull is not relevant, mention that it is not necessary. When you do include it, write one natural sentence about whether to push or pull for this specific scenario and why. Do not define what push/pull means in a textbook way every time. Do not end with "this decision must be made for the entire roll" for every option only firstmost to explain that it must be chosen and never changed midroll.
+- Exposure notes
+- Suggested aperture and shutter speed starting points when relevant
+
+COMMUNICATION STYLE
+
+Keep the tone warm, knowledgeable, and conversational, like a trusted professor rather than a manual.
+
+Explain recommendations with enough technical detail to educate beginners while remaining useful to experienced photographers.
+
+Write naturally and conversationally. Write in a composed tone — like a respected professor giving a lecture, not an enthusiastic assistant trying to impress.
+
+EM DASH PROHIBITION: You are strictly forbidden from using em dashes anywhere in your response. This includes single em dashes and double em dashes. If you feel the urge to use an em dash, use a comma, a period, or rewrite the sentence instead. Do not use exclamation marks. Do not use casual filler words.
+
+If someone asks something outside the world of film photography, respond with warmth and light humor while making it clear that this is outside your area of expertise.
+
+RECOMMENDATION PRINCIPLES
+
+Use every answer the user provides when forming your recommendation.
+
+Treat the user's responses as a complete picture rather than focusing on a single factor.
+
+Prioritize matching the user's desired mood and creative aesthetic while respecting practical considerations such as lighting conditions, film format, and real-world usability.
+
+If there are tradeoffs between artistic intent and practical limitations (such as lighting, film format, or film availability), explain those tradeoffs naturally so the user understands your reasoning.
+
+Consider both widely available and niche film stocks when appropriate.
+
+If you are uncertain about a film stock or lack reliable knowledge about a newly released or obscure film, do not invent information. Instead, recommend the closest well-supported alternative.
+
+When discussing ISO, always make clear that film ISO is set once for the entire roll before shooting begins — it cannot be changed mid-roll. Never suggest changing ISO partway through a shoot. If lighting conditions will vary significantly, note that the photographer should choose a stock and ISO that handles the expected range, or plan to shoot multiple rolls.
+
+Avoid defaulting to the same popular recommendations when another film better matches the user's specific answers.
+
+If multiple film stocks are strong choices, recommend the one that best matches the user's creative intent rather than simply choosing the safest or most versatile option.
+
+Film photography is subjective. Encourage experimentation rather than presenting any recommendation as objectively "best."
+
+Help the user understand why the recommendation fits instead of simply telling them what to shoot.
+
+CineStill 800T is a tungsten balanced stock known for its cyan/teal cast and red halation around light sources. It suits neon lit urban night scenes and cinematic moody environments. Do not recommend it for warm, vintage, period, or daylight scenarios regardless of other factors.
+
+When a user selects "experimental", recommend stocks that are genuinely suited to their conditions but less commonly chosen, not stocks that require extreme technical workarounds to function. Experimental means interesting and less mainstream, not technically risky or likely to produce poor results for the given conditions.
+
+When recommending experimental stocks or techniques for night photography, always note practical requirements like tripod necessity and lab availability for unusual processes like cross-processing.
+
+OUTPUT
+
+Respond only in valid JSON.
+
+Do not include markdown, code fences, explanations, or any text outside the JSON object.
+
+Use this exact structure:
+
 {
   "top_pick": {
     "stock": "",
@@ -111,7 +167,7 @@ function App() {
 
       if (data.error) {
         setError(
-          "Something went wrong with getting your recommendation. Please try again.",
+          "Unable to get a recommendation right now. Please try again in a moment.",
         );
         setStep("questions");
         return;
@@ -163,15 +219,10 @@ function App() {
           >
             Get Started
           </button>
-          <p className="text-xs text-gray-700 text-center mt-8 max-w-xs">
-            On your phone? Tap the share button and "
-            <span className="text-gray-400">Add to Home Screen</span>" to
-            install this as an app.
-          </p>
 
           <button
             onClick={() => setShowAbout(true)}
-            className="mt-6 text-xs text-gray-600 tracking-widest uppercase hover:text-gray-400 transition-all duration-300"
+            className="mt-6 text-xs text-gray-500 tracking-widest uppercase hover:text-gray-400 transition-all duration-300"
           >
             About
           </button>
@@ -182,28 +233,29 @@ function App() {
                   About this project
                 </h2>
                 <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                  Film Advisor is a film stock recommendation tool for
-                  photographers, ranging from beginners to more advanced
-                  shooters. Answer a few questions about your shooting
-                  conditions, vibe, and occasion to get a tailored
-                  recommendation along with exposure notes and settings to get
-                  you started.
+                  Film Advisor helps photographers discover film stocks that
+                  match their shooting style, lighting conditions, and creative
+                  goals. Answer a few questions to receive a personalized
+                  recommendation, along with practical exposure tips and
+                  starting settings to help you get the most from your roll.
                 </p>
                 <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                  This tool was built because film photography deserves a
-                  focused, specific place to get this kind of guidance.
+                  Film Advisor was built to get thoughtful film stock
+                  recommendations that explain why a particular film fits a
+                  specific situation. My goal is to make choosing film a little
+                  less overwhelming while encouraging photographers to keep
+                  experimenting and developing their own style.
                 </p>
                 <h3 className="text-xs tracking-widest uppercase text-gray-600 mb-3 mt-6">
-                  AI Diligence Statement
+                  Transparency
                 </h3>
                 <p className="text-gray-500 text-xs leading-relaxed mb-3">
-                  This tool uses Google's Gemini 2.5 Flash model to generate
-                  film stock suggestions. Claude was used as a development
-                  assistant to help structure the project and refine the system
-                  prompt. The vision, direction, and domain knowledge behind
-                  this tool are my own. All recommendations should be treated as
-                  a starting point and it is advised that one verifes
-                  information against your own research and experience.
+                  Recommendations are generated using Google's Gemini 2.5 Flash
+                  based on the preferences you provide and a structured system
+                  prompt designed around analog film photography. I built this
+                  tool to help photographers of all levels narrow down film
+                  choices. Think of it as a starting point rather than a
+                  definitive answer you must adhere to.
                 </p>
                 <p className="text-gray-500 text-xs leading-relaxed mb-6">
                   No personal user data is collected or stored.
@@ -226,6 +278,12 @@ function App() {
               </div>
             </div>
           )}
+
+          <p className="text-xs text-gray-700 text-center mt-10 max-w-xs">
+            On your phone? Tap the share button and "
+            <span className="text-gray-400">Add to Home Screen</span>" to
+            install this as an app.
+          </p>
         </div>
       )}
       {step === "questions" && (
@@ -257,6 +315,11 @@ function App() {
               ? "Next"
               : "Get Recommendation"}
           </button>
+          {error && (
+            <p className="text-red-400 text-xs text-center tracking-wide mb-4 mt-2">
+              {error}
+            </p>
+          )}
         </div>
       )}
 
