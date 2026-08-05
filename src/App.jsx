@@ -207,24 +207,17 @@ function App() {
     <div className="min-h-screen bg-[#111] text-gray-300 font-['Inter']">
       {step === "welcome" && (
         <div className="flex flex-col items-center justify-center min-h-screen px-6">
-          <h1 className="font-['Playfair_Display'] text-5xl md:text-7xl text-[#f0ece4] font-normal text-center mb-6">
+          <h1 className="font-['Playfair_Display'] text-5xl md:text-7xl text-[#f0ece4] font-normal text-center mb-4">
             Find your film
           </h1>
-          <p className="text-gray-500 text-center max-w-sm mb-10 text-sm leading-relaxed">
-            Answer a few questions and get a film stock recommendation.
+          <p className="text-gray-500 text-center max-w-md mb-4 text-xlg leading-relaxed font-['Playfair_Display']">
+            with
           </p>
           <button
-            onClick={() => setStep("questions")}
-            className="border border-gray-700 text-gray-300 text-sm tracking-widest uppercase px-8 py-3 hover:border-gray-400 hover:text-white transition-all duration-300"
-          >
-            Get Started
-          </button>
-
-          <button
             onClick={() => setShowAbout(true)}
-            className="mt-6 text-xs text-gray-500 tracking-widest uppercase hover:text-gray-400 transition-all duration-300"
+            className="text-md text-gray-400 tracking-widest uppercase hover:text-gray-400 transition-all duration-300 mb-8 font-['Playfair_Display'] cursor-help"
           >
-            About
+            Film Advisor
           </button>
           {showAbout && (
             <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center px-6 z-50">
@@ -278,8 +271,17 @@ function App() {
               </div>
             </div>
           )}
+          <p className="text-gray-500 text-center max-w-md mb-4 text-sm leading-relaxed">
+            Answer a few questions and get a film stock recommendation.
+          </p>
+          <button
+            onClick={() => setStep("questions")}
+            className="border border-gray-700 text-gray-300 text-sm tracking-widest uppercase px-8 py-3 hover:border-gray-400 hover:text-white transition-all duration-300"
+          >
+            Get Started
+          </button>
 
-          <p className="text-xs text-gray-700 text-center mt-10 max-w-xs">
+          <p className="text-xs text-gray-700 text-center mt-8 max-w-xs">
             On your phone? Tap the share button and "
             <span className="text-gray-400">Add to Home Screen</span>" to
             install this as an app.
