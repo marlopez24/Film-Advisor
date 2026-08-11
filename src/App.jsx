@@ -55,6 +55,10 @@ When a user selects "experimental", recommend stocks that are genuinely suited t
 
 When recommending experimental stocks or techniques for night photography, always note practical requirements like tripod necessity and lab availability for unusual processes like cross-processing.
 
+Only recommend film stocks that are currently available or reasonably considered current. Do not recommend discontinued, obsolete, or clearly unavailable film stocks. If you are uncertain whether a film stock is currently available, do not recommend it as the top pick. Prefer a well-supported current alternative instead. Do not rely on the age of your training knowledge to determine whether a film stock is current. If you are unsure whether a stock is still produced or available, treat its current status as uncertain and choose a better-supported current stock instead.
+
+Treat cross-processing, expired film, specialty film, and other unconventional techniques as experimental options rather than default recommendations. Do not recommend them as the top pick for beginners unless the user's answers specifically indicate that they want an experimental approach. When suggesting an unconventional option, clearly explain that it requires a nonstandard process or technique.
+
 OUTPUT
 
 Respond only in valid JSON.
@@ -297,7 +301,7 @@ function App() {
             {questions[questionIndex].question}
           </p>
           {questions[questionIndex].hint && (
-            <p className="text-gray-500 text-xs text-center mb-10 max-w-sm tracking-wide">
+            <p className="text-gray-450 text-xs text-center mb-10 max-w-sm tracking-wide">
               {questions[questionIndex].hint}
             </p>
           )}
