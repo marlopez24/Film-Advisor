@@ -138,6 +138,10 @@ function App() {
   const [expandedAlt, setExpandedAlt] = useState(null);
   const [error, setError] = useState(null);
   const [showAbout, setShowAbout] = useState(false);
+  
+
+
+
 
   const getRecommendation = async (allAnswers) => {
     setError(null);
@@ -218,7 +222,7 @@ function App() {
             with
           </p>
           <button
-            onClick={() => setShowAbout(true)}
+            onClick={() => setShowAbout(true)} 
             className="text-md text-gray-400 tracking-widest uppercase hover:text-gray-400 transition-all duration-300 mb-8 font-['Playfair_Display'] cursor-help"
           >
             Film Advisor
@@ -268,6 +272,7 @@ function App() {
 
                 <button
                   onClick={() => setShowAbout(false)}
+                  
                   className="border border-gray-700 text-gray-400 text-xs tracking-widest uppercase px-6 py-3 hover:border-gray-400 hover:text-white transition-all duration-300 w-full"
                 >
                   Close
@@ -278,12 +283,19 @@ function App() {
           <p className="text-gray-500 text-center max-w-md mb-4 text-sm leading-relaxed">
             Answer a few questions and get a film stock recommendation.
           </p>
-          <button
-            onClick={() => setStep("questions")}
-            className="border border-gray-700 text-gray-300 text-sm tracking-widest uppercase px-8 py-3 hover:border-gray-400 hover:text-white transition-all duration-300"
-          >
-            Get Started
-          </button>
+            <button
+                type="button"
+                onClick={() => setStep("questions")}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault();
+                    setStep("questions");
+                  }
+                }}
+                className="border border-gray-700 text-gray-300 text-sm tracking-widest uppercase px-8 py-3 hover:border-gray-400 hover:text-white transition-all duration-300"
+              >
+                Get Started
+              </button>
 
           <p className="text-xs text-gray-700 text-center mt-8 max-w-xs">
             On your phone? Tap the share button and "
